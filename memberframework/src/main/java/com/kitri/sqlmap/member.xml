@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.kitri.member.model.dao.MemberDao">
+  
+  	<select id="idCheck" parameterType="String" resultType="int">
+  		select count(id)
+		from member 
+		where id = #{id}
+  	</select>
+  	
+  	<select id="zipSearch" parameterType="String" resultType="zipcodedto">
+		select case
+				when length(new_post_code) = 4 then '0'||new_post_code 
+				else new_post_code 
+				end zipcode,  
+				sido_kor sido, gugun_kor gugun,  
+				nvl(upmyon_kor, ' ') upmyon, doro_kor doro,  
+				case 
+				when building_refer_number != '0' 
+				then building_origin_number||'-'||building_refer_number  
+				else trim(to_char(building_origin_number, '99999')) 
+				end buildingNumber, sigugun_building_name sigugunBuildingName
+		from postcode 
+		where doro_kor like '%'||#{doro}||'%' 
+		or sigugun_building_name like '%'||#{doro}||'%'
+  		
+  	</select>
+  	
+  	<insert id="registerMember" parameterType="memberdetaildto">
+  		insert all
+			into member (id, name, pass, emailid, emaildomain, joindate)
+			values (#{id}, #{name}, #{pass}, #{emailid}, #{emaildomain}, sysdate)
+			into member_detail (id, zipcode, address, address_detail, tel1, tel2, tel3)
+			values (#{id}, #{zipcode}, #{address}, #{addressDetail}, #{tel1}, #{tel2}, #{tel3})
+		select * from dual
+  	</insert>
+  	
+  	<select id="loginMember" parameterType="map" resultType="memberdto">
+  		select name, id, emailid, emaildomain, joindate 
+		from member 
+		where id = #{id} and pass = #{pass}
+  	</select>
+  	
+  	<delete id="deleteMember" parameterType="String">
+  		{call 
+           declare 
+              begin 
+               delete
+               from member_detail
+               where id = #{id};
+               delete
+               from member
+               where id = #{id};
+            end
+      	}
+  	</delete>
+  </mapper>
