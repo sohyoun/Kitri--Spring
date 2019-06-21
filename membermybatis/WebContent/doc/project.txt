@@ -1,0 +1,73 @@
+**원래 엑셀로 만듦
+
+membermvc
+	src
+		- com.kitri.admin.controller
+		  AdminController.java (Servlet : /admin)
+		
+		- com.kitri.admin.model
+		
+		- com.kitri.admin.model.dao
+		  AdminDao.java (I)
+		  AdminDaoImpl.java
+		  
+		- com.kitri.admin.model.service
+		  AdminService.java (I)
+		  AdminServiceImpl.java
+		
+		- com.kitri.member.controller
+		  MemberController.java (Servlet : /user)
+		
+		- com.kitri.member.model
+		  MemberDto.java
+		  MemberDetailDto.java
+		  ZipcodeDto.java
+		
+		- com.kitri.member.model.dao
+		  MemberDao.java (I)
+		  MemberDaoImpl.java
+		
+		- com.kitri.member.model.service
+		  MemberService.java (I)
+		  MemberServiceImpl.java
+				
+		- com.kitri.util
+		  DBConnection.java
+		  DBClose.java
+		  Encoder.java
+		
+	webContent
+		- js - member.js
+		- css - *.css
+		- img - *.jpg, png, gif
+		- admin
+		   - member
+		  	 memberlist.jsp
+		
+		- user
+		   - member
+		     member.jsp
+		     registerok.jsp
+		     registerfail.jsp
+		     idcheck.jsp(id중복확인)
+		     zipsearch.jsp(우편번호찾기)
+		     membermodify.jsp(회원정보수정)
+		   
+		   - login
+		  	 login.jsp
+		  	 loginok.jsp
+		  	 loginfail.jsp
+		  	 
+		  index.jsp
+		  
+		  
+		  
+* HttpSession & Cookie > 둘 다 뭔가를 저장할 수 있는 저장소
+Cookie 		: client 컴퓨터에 txt 파일로 저장된다. >>String 저장
+			    보안에 취약하다. 일반인들도 볼 수 있다. ex)자동로그인 / 홈쇼핑 최신본상품 / 광고 ( 내가 본 상품에 연관된 것 자동으로 광고 ) / 3일간 그만볼래요
+			    
+HttpSession : server에 memory에 저장된다.  >>Object 저장
+
+오늘 본 상품 : cookie
+찜목록  	>> 그냥 이 운동화						: DB	  (로그아웃해도 안날라감)
+장바구니  	>> 이 운동화 파란색에 250사이즈에 2켤래		: Session (로그아웃하는 순간 날라감)
