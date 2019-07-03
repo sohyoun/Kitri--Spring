@@ -1,5 +1,10 @@
 package com.kitri.cafe.common.service;
 
-public interface CommonService {
+import java.util.Map;
 
+import com.kitri.cafe.util.PageNavigation;
+
+public interface CommonService {
+	int getNextSeq();
+	PageNavigation getPageNavigation(Map<String, String> parameter);
 }

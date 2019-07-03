@@ -1,5 +1,18 @@
 package com.kitri.cafe.board.dao;
 
-public interface ReboardDao {
+import java.util.List;
+import java.util.Map;
 
+import com.kitri.cafe.board.model.ReboardDto;
+
+public interface ReboardDao {
+	int writeArticle(ReboardDto reboardDto);
+	List<ReboardDto> listArticle(Map<String, String> parameter); 
+	ReboardDto viewArticle(int seq);
+	int modifyArticle(ReboardDto reboardDto);
+	void deleteArticle(int seq);
+	
+	void updateStep(ReboardDto reboardDto); //원글의 ref와 step 필요
+	int replyArticle(ReboardDto reboardDto);
+	void updateReply(int pseq);
 }
